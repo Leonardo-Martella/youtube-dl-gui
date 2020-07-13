@@ -28,7 +28,11 @@ class PreferencesConfig:
     _filepath: str
         the path to the config file (will be created if it doesn't exist)
     _parser: configparser.ConfigParser
-        the parser responsible for parsing self._filepath. initialized with
+        the parser responsible for parsing self._filepath. initialized
+        with interpolation=None to avoid the name template – which defaults
+        to '%(title)s – %(uploader)s.%(ext)s' – from being interpolated if
+        some variables in the string were to have the same name as the ones
+        in the file.
     """
 
     _CONFIG_SECTION = "preferences"
@@ -130,6 +134,20 @@ class PreferencesConfig:
         ------
         KeyError
             if 'key' is not a valid setting key
+
+        Examples
+        --------
+
+        >>> self.config['output_directory'] = '~/output'
+        >>> self.config['output_directory']
+        '~/output'
+
+        # save non string type int (bool and float also available)
+        >>> self.config['timeout'] = 7
+        >>> self.config['timeout']
+        '7'
+        >>> self.config['timeout', int]
+        7
         """
         if not self._parser.has_option(self._CONFIG_SECTION, key):
             raise KeyError(f"invalid setting key '{key}'")
