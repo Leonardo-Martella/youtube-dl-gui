@@ -141,7 +141,7 @@
      <item>
       <widget class="QPushButton" name="resetDefaultSettingsPushButton">
        <property name="text">
-        <string>Reset to Default Settings and Save</string>
+        <string>Reset to Default Settings and Close</string>
        </property>
       </widget>
      </item>

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'app/preferences/preferences.ui'
+# Form implementation generated from reading ui file 'app/qt_ui/preferences.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.0
 #
@@ -119,4 +119,4 @@ class Ui_PreferencesDialog(object):
         self.label_6.setText(_translate("PreferencesDialog", "Timeout (in seconds)"))
         self.label_7.setText(_translate("PreferencesDialog", "SSL Certificate Verification"))
         self.label_9.setText(_translate("PreferencesDialog", "Format Selector Expression"))
-        self.resetDefaultSettingsPushButton.setText(_translate("PreferencesDialog", "Reset to Default Settings and Save"))
+        self.resetDefaultSettingsPushButton.setText(_translate("PreferencesDialog", "Reset to Default Settings and Close"))
