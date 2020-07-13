@@ -21,10 +21,10 @@ class PreferencesConfig:
     ----------
     _CONFIG_SECTION: str
         the name of the config section used for storing the preferences
-    PREFERENCES: list[str]
-        the valid setting keys (for subscripting instance)
     DEFAULTS: dict[str: str]
         the default values for every available option
+    PREFERENCES: list[str]
+        the valid setting keys (for subscripting instance)
     _filepath: str
         the path to the config file (will be created if it doesn't exist)
     _parser: configparser.ConfigParser
@@ -36,9 +36,6 @@ class PreferencesConfig:
     """
 
     _CONFIG_SECTION = "preferences"
-    PREFERENCES = ["output_directory", "name_template", "private_mode",
-                   "age_limit_warning", "geo_bypass", "timeout",
-                   "check_certificate", "cookie_file", "format_selector"]
     DEFAULTS = {
         "output_directory": "~/Downloads/YoutubeDL/",
         "name_template": "%(title)s – %(uploader)s.%(ext)s",
@@ -52,6 +49,7 @@ class PreferencesConfig:
                            "bestvideo[ext=mp4])+bestaudio[ext=m4a]/"
                            "bestvideo+bestaudio/best[ext=mp4]/best"
     }
+    PREFERENCES = list(DEFAULTS)
 
     def __init__(self, filepath):
         """Initialize the PreferencesConfig class.
