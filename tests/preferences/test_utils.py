@@ -4,7 +4,6 @@ import secrets
 import tempfile
 import unittest
 
-
 from app.preferences.utils import PreferencesConfig
 
 
