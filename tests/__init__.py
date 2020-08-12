@@ -1,1 +1,2 @@
 from tests.test_preferences.test_utils import TestPreferencesConfig
+from tests.test_main.test_download import TestDownloaderThread, TestInternetIsAvailable
