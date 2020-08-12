@@ -24,11 +24,6 @@ class TestPreferencesConfig(unittest.TestCase):
         self.temp_file = tempfile.NamedTemporaryFile(mode="w+")
         self.config = PreferencesConfig(self.temp_file.name)
 
-    def test_init(self):
-        """Verify the correct initialization of the PreferencesConfig object."""
-        self.assertTrue(self.config._parser.has_section(self.config._CONFIG_SECTION))
-        # TODO(add more checks)
-
     def test_reset(self):
         """Test the 'reset' method."""
         for pref in self.config.PREFERENCES:
