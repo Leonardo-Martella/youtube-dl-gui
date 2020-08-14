@@ -41,11 +41,11 @@ def mock_download(func):
 
     This decorator should only be used on TestDownloaderThread class methods.
     """
-    def wrapper(self, *args):
-        def fake_download_func(*args):
+    def wrapper(self, *args, **kwargs):
+        def fake_download_func(*_, **__):
             time.sleep(self.MOCK_DOWNLOAD_TIME)
         self.dl_t.download = fake_download_func
-        return func(self)
+        return func(self, *args, **kwargs)
     return wrapper
 
 
@@ -125,7 +125,7 @@ class TestDownloaderThread(unittest.TestCase):
         time.sleep(1.5 * self.MOCK_DOWNLOAD_TIME)
         stop_event.set()
         time.sleep(2 * self.MOCK_DOWNLOAD_TIME)
-        # check that the last link hasn't been downloaded
+        # check that the third link hasn't been downloaded
         self.assertEqual(self.sample_links[2], self.dl_t.get(block=False)[0])
 
     @mock_download
