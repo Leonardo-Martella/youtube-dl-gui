@@ -14,3 +14,7 @@ class MainWindow(QMainWindow):
         super().__init__(parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+    def __getattr__(self, name):
+        """Use composition for easier access to the ui elements."""
+        return getattr(self.ui, name)
