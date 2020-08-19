@@ -29,6 +29,24 @@ class DownloaderThread(threading.Thread):
         a FIFO queue of the items to download, which are tuples of:
         url, private_mode, yt_dl_options (please refer to the explanations
         for the 'download' static method of this class)
+
+    Examples
+    --------
+    >>> dl_thread = DownloaderThread()
+    >>> dl_thread.start()  # start thread
+    >>> url = "https://www.youtube.com/......"  # the video to download
+    >>> private = False
+    >>> prefs = {
+        # the options to give to the youtube_dl.YoutubeDL class
+        # see the youtube_dl docs for this
+    }
+    >>> item = (url, private, prefs)
+    # prefer block=False or 'put_nowait' since queue size is infinite,
+    # so it raises an error immediately if there is a problem.
+    >>> dl_thread.put(item, block=False)  # or dl_thread.put_nowait(item)
+    # thread starts downloading, you can continue adding items to the queue.
+    # when you want to stop it (actually stops after current download finishes).
+    >>> stop_event.set()
     """
 
     def __init__(self):
