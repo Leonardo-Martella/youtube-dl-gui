@@ -3,7 +3,6 @@ import threading
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QDialog
 
-from app import PREFERENCES_CONFIG_FILE
 from app.preferences.ui import Ui_PreferencesDialog
 from app.preferences.utils import (
     PreferencesConfig,
@@ -40,7 +39,7 @@ class PreferencesDialog(QDialog):
         self.ageLimitComboBox.addItems(age_limit_choices.items)
         self.geoBypassComboBox.addItems(geo_bypass_choices.items)
 
-        self.config = PreferencesConfig(PREFERENCES_CONFIG_FILE)
+        self.config = PreferencesConfig()
 
         # NOTE(the Ok and Cancel buttons are connected to the reject and accept slots by default)
         self.resetDefaultSettingsPushButton.clicked.connect(self.on_reset_preferences)

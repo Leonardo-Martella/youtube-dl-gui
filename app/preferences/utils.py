@@ -2,6 +2,8 @@ import collections
 import configparser
 import os.path
 
+from app import PREFERENCES_CONFIG_FILE
+
 
 Choices = collections.namedtuple("Choices", ["default", "items"])
 Choices.__doc__ = \
@@ -51,7 +53,7 @@ class PreferencesConfig:
     }
     PREFERENCES = list(DEFAULTS)
 
-    def __init__(self, filepath):
+    def __init__(self, filepath=PREFERENCES_CONFIG_FILE):
         """Initialize the PreferencesConfig class.
 
         Parameters
