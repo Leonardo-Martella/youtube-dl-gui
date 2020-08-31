@@ -47,7 +47,7 @@ class PreferencesDialog(QDialog):
         threading.Thread(target=self.load_preferences).start()
 
     def __getattr__(self, name):
-        """Use composition for easier access to the ui elements."""
+        """Access the ui elements more easily."""
         return getattr(self.ui, name)
 
     @pyqtSlot()
