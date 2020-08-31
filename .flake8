@@ -1,3 +1,14 @@
 [flake8]
-exclude = .vscode/, venv/, app/ui/
+exclude =
+    # launch config and other VSCode files
+    .vscode/,
+    # python virtual environment
+    venv/,
+    # Qt Designer *.ui files
+    app/qt_ui/,
+    # Python files generated from the *.ui files using pyuic5
+    ui.py
 max-line-length = 120
+per_file_ignores =
+    # import test cases to run them from the command line
+    tests/__init__.py:F401
