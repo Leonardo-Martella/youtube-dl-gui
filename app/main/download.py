@@ -1,8 +1,9 @@
+import http.client
+import queue  # don't use queue.Queue since we subclass it later
 import threading
 import time
-import queue
+
 import youtube_dl
-import http.client
 
 
 def internet_is_available():
@@ -18,6 +19,61 @@ def internet_is_available():
 
 
 stop_event = threading.Event()  # stops the download thread (waits for current download to finish)
+
+
+class Queue(queue.Queue):
+    """A subclass of queue.Queue, which counts the number of tasks done.
+
+    Attributes
+    ----------
+    _tasks_done: int
+        a counter of the number of calls to the 'task_done' function,
+        it represents the number of tasks done
+
+    Please refer to the documentation for queue.Queue from the Python Standard
+    Library for more information on the attributes and methods of queue.Queue.
+
+    Examples
+    --------
+    >>> q = Queue()
+    >>> for i in range(4):
+    ...     q.put(i)
+    ...
+    >>> for _ in range(4):
+    ...     item = q.get()
+    ...     # process item
+    ...     q.task_done()
+    ...
+    >>> tasks_done = q.get_tasks_done()
+    >>> tasks_done, q._tasks_done
+    (4, 4)
+    >>> tasks_done = q.get_tasks_done(reset=True)
+    >>> tasks_done, q._tasks_done
+    (4, 0)
+    """
+
+    def __init__(self, maxsize=0):
+        """Initialize the superclass and create the '_tasks_done' attribute."""
+        super().__init__(maxsize)
+        self._tasks_done = 0
+
+    def task_done(self, *args, **kwargs):
+        """Override the 'task_done' method to increment '_tasks_done'."""
+        self._tasks_done += 1
+        return super().task_done(*args, **kwargs)
+
+    def get_tasks_done(self, reset=False):
+        """Return the number of tasks done (as an integer).
+
+        Parameters
+        ----------
+        reset: bool
+            wether or not to reset the number of tasks done
+        """
+        tasks_done = self._tasks_done  # save current value in case we reset
+        if reset:
+            self._tasks_done = 0
+        return tasks_done
 
 
 class DownloaderThread(threading.Thread):
@@ -52,7 +108,7 @@ class DownloaderThread(threading.Thread):
     def __init__(self):
         """Initialize the threading.Thread base class and the queue object."""
         super().__init__()
-        self.queue = queue.Queue()
+        self.queue = Queue()
 
     def run(self):
         """The function to be run by the thread once it is started.
@@ -78,6 +134,7 @@ class DownloaderThread(threading.Thread):
                             break  # proceed to next item
                     else:
                         break
+                self.queue.task_done()
 
     @staticmethod
     def download(url, private, yt_dl_options):
@@ -96,7 +153,7 @@ class DownloaderThread(threading.Thread):
         ------
         youtube_dl.utils.DownloadError
             if the download fails (e.g invalid url or network connection error)
-            use the 'internet_is_available' function to determine if it is a connection erro
+            use the 'internet_is_available' function to determine if it is a connection error
         """
         # TODO(implement 'private')
         with youtube_dl.YoutubeDL(yt_dl_options) as dl:

@@ -7,7 +7,7 @@ import unittest
 import unittest.mock  # else raises AttributeError: module 'unittest' has no attribute 'mock'
 import youtube_dl.utils
 
-from app.main.download import DownloaderThread, stop_event, internet_is_available
+from app.main.download import DownloaderThread, stop_event, internet_is_available, Queue
 
 
 msg = "Please make sure you have an active internet connection before running these tests."
@@ -47,6 +47,41 @@ def mock_download(func):
         self.dl_t.download = fake_download_func
         return func(self, *args, **kwargs)
     return wrapper
+
+
+class TestQueue(unittest.TestCase):
+    """Test the Queue class, which is a subclass of queue.Queue."""
+
+    def setUp(self):
+        """Set up the necessary attributes for testing."""
+        self.queue = Queue()
+
+    def prepare_queue(self, N):
+        """Fill the queue with items, retrieve them and call 'task_done'."""
+        for i in range(N):
+            self.queue.put(i, block=False)
+        for _ in range(N):
+            _ = self.queue.get(block=False)
+            self.queue.task_done()
+
+    def test_tasks_done_increment(self):
+        """Check that '_tasks_done' gets incremented when calling 'task_done'."""
+        N = 37
+        self.prepare_queue(N)
+
+        self.assertEqual(self.queue._tasks_done, N)
+
+    def test_get_tasks_done(self):
+        """Test the 'get_tasks_done' method."""
+        N = 46
+        self.prepare_queue(N)
+
+        self.assertEqual(self.queue.get_tasks_done(), N)
+        self.assertEqual(self.queue._tasks_done, N)
+
+        self.assertEqual(self.queue.get_tasks_done(reset=True), N)
+        self.assertEqual(self.queue.get_tasks_done(), 0)
+        self.assertEqual(self.queue._tasks_done, 0)
 
 
 class TestDownloaderThread(unittest.TestCase):
