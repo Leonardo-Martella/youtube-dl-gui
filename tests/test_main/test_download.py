@@ -36,19 +36,6 @@ class TestInternetIsAvailable(unittest.TestCase):
             self.assertFalse(internet_is_available())
 
 
-def mock_download(func):
-    """Mock the download method of the downloader thread object.
-
-    This decorator should only be used on TestDownloaderThread class methods.
-    """
-    def wrapper(self, *args, **kwargs):
-        def fake_download_func(*_, **__):
-            time.sleep(self.MOCK_DOWNLOAD_TIME)
-        self.dl_t.download = fake_download_func
-        return func(self, *args, **kwargs)
-    return wrapper
-
-
 class TestQueue(unittest.TestCase):
     """Test the Queue class, which is a subclass of queue.Queue."""
 
@@ -82,6 +69,19 @@ class TestQueue(unittest.TestCase):
         self.assertEqual(self.queue.get_tasks_done(reset=True), N)
         self.assertEqual(self.queue.get_tasks_done(), 0)
         self.assertEqual(self.queue._tasks_done, 0)
+
+
+def mock_download(func):
+    """Mock the download method of the downloader thread object.
+
+    This decorator should only be used on TestDownloaderThread class methods.
+    """
+    def wrapper(self, *args, **kwargs):
+        def fake_download_func(*_, **__):
+            time.sleep(self.MOCK_DOWNLOAD_TIME)
+        self.dl_t.download = fake_download_func
+        return func(self, *args, **kwargs)
+    return wrapper
 
 
 class TestDownloaderThread(unittest.TestCase):
