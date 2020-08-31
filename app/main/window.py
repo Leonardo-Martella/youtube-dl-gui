@@ -15,6 +15,13 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        # default option is to download video
+        self.ui.videoDownloadOptionRadioButton.setChecked(True)
+        self.ui.audioDownloadOptionRadioButton.setChecked(False)
+
+        # default option is to not download playlists
+        self.ui.downloadPlaylistsCheckBox.setChecked(True)
+
     def __getattr__(self, name):
         """Access the ui elements more easily."""
         return getattr(self.ui, name)
