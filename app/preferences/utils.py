@@ -5,15 +5,10 @@ import os.path
 from app import PREFERENCES_CONFIG_FILE
 
 
+# NOTE(currently not used, since no settings use combo boxes now. keeping this just in case)
 Choices = collections.namedtuple("Choices", ["default", "items"])
 Choices.__doc__ = \
     """Represents the choices available for a specific combo box in the preferences dialog."""
-
-age_limit_choices = Choices(default="content marked as 18+ or no age limit found",
-                            items=["never", "content marked as 18+",
-                                   "content marked as 18+ or no age limit found"])
-geo_bypass_choices = Choices(default="ask when needed",
-                             items=["auto", "ask when needed", "always", "never"])
 
 
 class PreferencesConfig:
@@ -41,15 +36,12 @@ class PreferencesConfig:
     DEFAULTS = {
         "output_directory": "~/Downloads/YoutubeDL/",
         "name_template": "%(title)s – %(uploader)s.%(ext)s",
-        "private_mode": str(False),
-        "age_limit_warning": age_limit_choices.default,
-        "geo_bypass": geo_bypass_choices.default,
         "timeout": str(5),
         "check_certificate": str(True),
-        "cookie_file": "",
-        "format_selector": "(bestvideo[ext=mp4][width=1920]/"
-                           "bestvideo[ext=mp4])+bestaudio[ext=m4a]/"
-                           "bestvideo+bestaudio/best[ext=mp4]/best"
+        "video_format_selector": "(bestvideo[ext=mp4][width=1920]/"
+                                 "bestvideo[ext=mp4])+bestaudio[ext=m4a]/"
+                                 "bestvideo+bestaudio/best[ext=mp4]/best",
+        "audio_format_selector": "bestaudio[ext=mp3]/bestaudio"
     }
     PREFERENCES = list(DEFAULTS)
 
@@ -92,11 +84,11 @@ class PreferencesConfig:
 
         Examples
         --------
-        >>> config['private_mode']
+        >>> config['check_certificate']
         'False'
 
         # specify type to cast to
-        >>> config['private_mode', bool]
+        >>> config['check_certificate', bool]
         False
         """
         try:

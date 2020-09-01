@@ -20,7 +20,10 @@ class MainWindow(QMainWindow):
         self.ui.audioDownloadOptionRadioButton.setChecked(False)
 
         # default option is to not download playlists
-        self.ui.downloadPlaylistsCheckBox.setChecked(True)
+        self.ui.downloadPlaylistsCheckBox.setChecked(False)
+
+        # default option is to save downloaded URLs
+        self.ui.privateModeCheckBox.setChecked(False)
 
     def __getattr__(self, name):
         """Access the ui elements more easily."""

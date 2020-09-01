@@ -6,9 +6,27 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>509</width>
-    <height>427</height>
+    <width>447</width>
+    <height>321</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>321</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>321</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
@@ -56,82 +74,48 @@
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="2" column="0">
-       <widget class="QLabel" name="label_5">
+       <widget class="QLabel" name="label_9">
         <property name="text">
-         <string>Bypass Geographic Restrictions</string>
+         <string>Video Format Selector</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>Age Limit Warning</string>
-        </property>
-       </widget>
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="audioFormatSelectorLineEdit"/>
       </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="label_8">
-        <property name="text">
-         <string>Cookie File</string>
-        </property>
-       </widget>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="videoFormatSelectorLineEdit"/>
       </item>
       <item row="0" column="0">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>Private Mode</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
        <widget class="QLabel" name="label_6">
         <property name="text">
          <string>Timeout (in seconds)</string>
         </property>
        </widget>
       </item>
-      <item row="4" column="0">
+      <item row="1" column="0">
        <widget class="QLabel" name="label_7">
         <property name="text">
          <string>SSL Certificate Verification</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
+      <item row="0" column="1">
        <widget class="QSpinBox" name="timeoutSpinBox"/>
       </item>
-      <item row="0" column="1">
-       <widget class="QCheckBox" name="privateModeCheckBox">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="1">
-       <widget class="QComboBox" name="ageLimitComboBox"/>
-      </item>
-      <item row="2" column="1">
-       <widget class="QComboBox" name="geoBypassComboBox"/>
-      </item>
-      <item row="4" column="1">
        <widget class="QCheckBox" name="checkCertificateCheckBox">
         <property name="text">
          <string/>
         </property>
        </widget>
       </item>
-      <item row="5" column="1">
-       <widget class="QLineEdit" name="cookieFileLineEdit"/>
-      </item>
-      <item row="6" column="0">
-       <widget class="QLabel" name="label_9">
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_10">
         <property name="text">
-         <string>Format Selector Expression</string>
+         <string>Audio Format Selector</string>
         </property>
        </widget>
-      </item>
-      <item row="6" column="1">
-       <widget class="QLineEdit" name="formatSelectorExpressionLineEdit"/>
       </item>
      </layout>
     </widget>

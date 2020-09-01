@@ -4,11 +4,7 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QDialog
 
 from app.preferences.ui import Ui_PreferencesDialog
-from app.preferences.utils import (
-    PreferencesConfig,
-    age_limit_choices,
-    geo_bypass_choices
-)
+from app.preferences.utils import PreferencesConfig
 
 
 class PreferencesDialog(QDialog):
@@ -36,8 +32,6 @@ class PreferencesDialog(QDialog):
         super().__init__(parent)
         self.ui = Ui_PreferencesDialog()
         self.setupUi(self)
-        self.ageLimitComboBox.addItems(age_limit_choices.items)
-        self.geoBypassComboBox.addItems(geo_bypass_choices.items)
 
         self.config = PreferencesConfig()
 
@@ -74,22 +68,16 @@ class PreferencesDialog(QDialog):
         """Load the preferences from the config to the widgets."""
         self.outputDirectoryLineEdit.setText(self.config['output_directory'])
         self.defaultNameTemplateLineEdit.setText(self.config['name_template'])
-        self.privateModeCheckBox.setChecked(self.config['private_mode', bool])
-        self.ageLimitComboBox.setCurrentText(self.config['age_limit_warning'])
-        self.geoBypassComboBox.setCurrentText(self.config['geo_bypass'])
         self.timeoutSpinBox.setValue(self.config['timeout', int])
         self.checkCertificateCheckBox.setChecked(self.config['check_certificate', bool])
-        self.cookieFileLineEdit.setText(self.config['cookie_file'])
-        self.formatSelectorExpressionLineEdit.setText(self.config['format_selector'])
+        self.videoFormatSelectorLineEdit.setText(self.config['video_format_selector'])
+        self.audioFormatSelectorLineEdit.setText(self.config['audio_format_selector'])
 
     def save_preferences(self):
         """Save the preferences to the config from the current state of the widgets."""
         self.config['output_directory'] = self.outputDirectoryLineEdit.text()
         self.config['name_template'] = self.defaultNameTemplateLineEdit.text()
-        self.config['private_mode'] = self.privateModeCheckBox.isChecked()
-        self.config['age_limit_warning'] = self.ageLimitComboBox.currentText()
-        self.config['geo_bypass'] = self.geoBypassComboBox.currentText()
         self.config['timeout'] = self.timeoutSpinBox.value()
         self.config['check_certificate'] = self.checkCertificateCheckBox.isChecked()
-        self.config['cookie_file'] = self.cookieFileLineEdit.text()
-        self.config['format_selector'] = self.formatSelectorExpressionLineEdit.text()
+        self.config['video_format_selector'] = self.videoFormatSelectorLineEdit.text()
+        self.config['audio_format_selector'] = self.audioFormatSelectorLineEdit.text()
