@@ -82,6 +82,20 @@
            </item>
           </layout>
          </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QCheckBox" name="privateModeCheckBox">
+             <property name="toolTip">
+              <string/>
+             </property>
+             <property name="text">
+              <string>Private Mode</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
         </layout>
        </widget>
       </item>
