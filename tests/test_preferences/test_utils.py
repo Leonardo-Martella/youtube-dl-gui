@@ -52,15 +52,15 @@ class TestPreferencesConfig(unittest.TestCase):
         self.assertIsInstance(self.config['timeout'], str)
         self.assertIsInstance(self.config['timeout', int], int)
 
-        self.config['private_mode'] = True
-        self.assertIsInstance(self.config['private_mode'], str)
-        self.assertIsInstance(self.config['private_mode', bool], bool)
+        self.config['check_certificate'] = True
+        self.assertIsInstance(self.config['check_certificate'], str)
+        self.assertIsInstance(self.config['check_certificate', bool], bool)
 
         with self.assertRaises(TypeError):
-            self.config['geo_bypass', list]
+            self.config['audio_format_selector', list]
 
         with self.assertRaises(ValueError):
-            self.config['private_mode', int]
+            self.config['check_certificate', int]
 
     def test_save(self):
         """Test the 'save' method."""
