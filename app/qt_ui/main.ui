@@ -57,6 +57,9 @@
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
             <widget class="QRadioButton" name="audioDownloadOptionRadioButton">
+             <property name="toolTip">
+              <string>Only Download Audio.</string>
+             </property>
              <property name="text">
               <string>Audio</string>
              </property>
@@ -64,6 +67,9 @@
            </item>
            <item>
             <widget class="QRadioButton" name="videoDownloadOptionRadioButton">
+             <property name="toolTip">
+              <string>Download Audio and Video.</string>
+             </property>
              <property name="text">
               <string>Video</string>
              </property>
@@ -75,6 +81,9 @@
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
             <widget class="QCheckBox" name="downloadPlaylistsCheckBox">
+             <property name="toolTip">
+              <string>Download the entire Playlist if available.</string>
+             </property>
              <property name="text">
               <string>Download Playlists</string>
              </property>
@@ -87,7 +96,7 @@
            <item>
             <widget class="QCheckBox" name="privateModeCheckBox">
              <property name="toolTip">
-              <string/>
+              <string>When Private Mode is Active for a Download, the URL you Download won't be Saved.</string>
              </property>
              <property name="text">
               <string>Private Mode</string>
