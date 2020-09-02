@@ -12,7 +12,7 @@ def internet_is_available():
     try:
         conn.request("HEAD", "/")
         return True
-    except:
+    except Exception:
         return False
     finally:
         conn.close()
