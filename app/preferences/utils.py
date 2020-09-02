@@ -58,11 +58,17 @@ class PreferencesConfig:
         self._filepath = filepath
         self._parser = configparser.ConfigParser(interpolation=None)
         self._parser.add_section(self._CONFIG_SECTION)
-        if not os.path.exists(self._filepath) or os.path.getsize(self._filepath) == 0:
-            self.reset()
-            self.save()
+        if not os.path.exists(self._filepath):
+            self.reset(save=True)
         with open(self._filepath, "r") as file:
             self._parser.read_file(file)
+        if not self._parser_valid():
+            self.reset(save=True)
+        with open(self._filepath, "r") as file:
+            self._parser.read_file(file)
+
+    def _parser_valid(self):
+        return not bool(set(self.PREFERENCES) - set(self._parser.options(self._CONFIG_SECTION)))
 
     def __getitem__(self, args):
         """Get a setting by subscript.
@@ -99,18 +105,18 @@ class PreferencesConfig:
         if not self._parser.has_option(self._CONFIG_SECTION, key):
             raise KeyError(f"invalid setting key '{key}'")
 
-        get = {
-            bool: self._parser.getboolean,
-            int: self._parser.getint,
-            float: self._parser.getfloat,
-            str: self._parser.get,
-            None: self._parser.get
-        }
-
         try:
-            return get[coerce](self._CONFIG_SECTION, key)
+            get = {
+                bool: self._parser.getboolean,
+                int: self._parser.getint,
+                float: self._parser.getfloat,
+                str: self._parser.get,
+                None: self._parser.get
+            }[coerce]
         except KeyError:
-            raise TypeError(f"can't coerce to type '{coerce}'")
+            raise TypeError(f"can't coerce to type '{coerce}'") from None
+
+        return get(self._CONFIG_SECTION, key)
 
     def __setitem__(self, key, item):
         """Set a setting by subscript.
@@ -146,10 +152,12 @@ class PreferencesConfig:
 
         self._parser.set(self._CONFIG_SECTION, key, str(item))
 
-    def reset(self):
-        """Reset the preferences config parser."""
+    def reset(self, save=False):
+        """Reset the preferences config parser (and optionally save)."""
         for pref in self.DEFAULTS:
             self._parser.set(self._CONFIG_SECTION, pref, self.DEFAULTS[pref])
+        if save:
+            self.save()
 
     def save(self):
         """Write self._parser to self._filepath."""
