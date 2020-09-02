@@ -24,6 +24,22 @@ class TestPreferencesConfig(unittest.TestCase):
         self.temp_file = tempfile.NamedTemporaryFile(mode="w+")
         self.config = PreferencesConfig(self.temp_file.name)
 
+    def test_parser_valid(self):
+        """Test the '_parser_valid' method."""
+        self.assertTrue(self.config._parser_valid())  # should be valid initially
+
+        add_options = [secrets.token_hex(4) for _ in range(5)]
+        for option in add_options:  # add useless options
+            self.config._parser.set(self.config._CONFIG_SECTION, option, secrets.token_hex(4))
+        self.assertTrue(self.config._parser_valid())  # all required options are still here
+
+        for option in self.config.PREFERENCES[:2]:  # remove options which are required
+            self.config._parser.remove_option(self.config._CONFIG_SECTION, option)
+        self.assertFalse(self.config._parser_valid())
+
+        self.config._parser[self.config._CONFIG_SECTION].clear()  # clear options
+        self.assertFalse(self.config._parser_valid())
+
     def test_reset(self):
         """Test the 'reset' method."""
         for pref in self.config.PREFERENCES:
