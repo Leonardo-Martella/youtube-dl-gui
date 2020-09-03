@@ -53,7 +53,8 @@ class PreferencesConfig:
         filepath: str
             the path to the config file (will be created if it doesn't exist or if it is empty)
 
-        Create the config file if necessary and load the preferences from it.
+        Create the config file if necessary, load the preferences from it,
+        if they are not valid, reset the config file.
         """
         self._filepath = filepath
         self._parser = configparser.ConfigParser(interpolation=None)
@@ -68,6 +69,7 @@ class PreferencesConfig:
             self._parser.read_file(file)
 
     def _parser_valid(self):
+        """Return wether or not the parser has all of the required preferences."""
         return not bool(set(self.PREFERENCES) - set(self._parser.options(self._CONFIG_SECTION)))
 
     def __getitem__(self, args):
