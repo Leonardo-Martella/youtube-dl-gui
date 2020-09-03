@@ -1,5 +1,5 @@
 # youtube-dl-gui
-A GUI app for downloading video/audio from the web using youtube-dl (https://github.com/ytdl-org/youtube-dl). Developed and tested on macOS Catalina 10.15.5 (not tested on Windows).
+A GUI app for downloading video/audio from the web using youtube-dl (https://github.com/ytdl-org/youtube-dl). Developed and tested on macOS Catalina 10.15.5 (not tested on Windows) with Python 3.7.4.
 
 # Advantages over the CLI
 The app provides sensible defaults, so you won't have to re-type everything and the most useful options are easily accessible from the GUI.
