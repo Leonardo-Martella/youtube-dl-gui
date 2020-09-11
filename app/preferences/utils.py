@@ -41,7 +41,7 @@ class PreferencesConfig:
         "video_format_selector": "(bestvideo[ext=mp4][width=1920]/"
                                  "bestvideo[ext=mp4])+bestaudio[ext=m4a]/"
                                  "bestvideo+bestaudio/best[ext=mp4]/best",
-        "audio_format_selector": "bestaudio[ext=mp3]/bestaudio"
+        "audio_format_selector": "bestaudio[ext=mp3]/bestaudio[ext=m4a]/bestaudio"
     }
     PREFERENCES = list(DEFAULTS)
 
